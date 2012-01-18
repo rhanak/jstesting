@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Setting the "constructor" Property in the Prototype Object</title>
+</head>
+<body>
+<pre>
+<script type="text/javascript">
+
+// Setting up my constructor, prototype and object
+function Book(title, author) {
+   this.title = title;
+   this.author = author;
+}
+
+   // Replacing the default prototype object
+   myPrototype = new Object();
+   Book.prototype = myPrototype;
+   Book.prototype.price = 9.99;
+   Book.prototype.constructor = Book;
+  
+   // Modifying the base prototype object
+   Object.prototype.copyright = "herongyang.com";
+   
+   // Creating an object from my constructor
+   var myBook = new Book("JavaScript Tutorials", "Herong Yang");
+
+   // Dumping built-in properties at the base prototype level
+   document.writeln("\nObject.prototype's built-in properties:");
+   dumpProperty(Object.prototype, "constructor");
+   dumpProperty(Object.prototype, "hasOwnProperty");
+   dumpProperty(Object.prototype, "isPrototypeOf");
+   dumpProperty(Object.prototype, "toString");
+   dumpProperty(Object.prototype, "valueOf");
+
+   // Dumping built-in properties at the my prototype level
+   document.writeln("\nBook.prototype's built-in properties:");
+   dumpProperty(Book.prototype, "constructor");
+   dumpProperty(Book.prototype, "hasOwnProperty");
+   dumpProperty(Book.prototype, "isPrototypeOf");
+   dumpProperty(Book.prototype, "toString");
+   dumpProperty(Book.prototype, "valueOf");
+
+   // Dumping built-in properties at the object level
+   document.writeln("\nmyBook's built-in properties:");
+   dumpProperty(myBook, "constructor");
+   dumpProperty(myBook, "hasOwnProperty");
+   dumpProperty(myBook, "isPrototypeOf");
+   dumpProperty(myBook, "toString");
+   dumpProperty(myBook, "valueOf");
+
+function dumpProperty(object, property) {
+   var inheritance; 
+   if (object.hasOwnProperty(property)) 
+      inheritance = "Local";
+   else 
+      inheritance = "Inherited";
+   document.writeln("   "+property+": "+inheritance+": "
+      +object[property]);
+}
+</script>
+</pre>
+</body>
+</html>
